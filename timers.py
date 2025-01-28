@@ -2,40 +2,48 @@ from kivy.clock import Clock
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.scatterlayout import ScatterLayout
 
 class WorkTimer(BoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
         self.orientation = "vertical"
-        
+
         # Labels for each time in the ones and tens place
         # Should default to 25 minutes
         hours_tens = Label(text = "0", 
                            font_size = "200dp", 
-                           size_hint_y = None)
+                           size_hint = (None, None),
+                           size = (100, 200))
         hours_ones = Label(text = "0", 
                            font_size = "200dp", 
-                           size_hint_y = None)
+                           size_hint = (None, None),
+                           size = (100, 200))
         
         minutes_tens = Label(text = "2", 
                              font_size = "200dp", 
-                             size_hint_y = None)
+                             size_hint = (None, None),
+                             size = (100, 200))
         minutes_ones = Label(text = "5", 
                              font_size = "200dp", 
-                             size_hint_y = None)
+                             size_hint = (None, None),
+                             size = (100, 200))
         
         seconds_tens = Label(text = "0", 
                              font_size = "200dp", 
-                             size_hint_y = None)
+                             size_hint = (None, None),
+                             size = (100, 200))
         seconds_ones = Label(text = "0", 
                              font_size = "200dp", 
-                             size_hint_y = None)
+                             size_hint = (None, None),
+                             size = (100, 200))
         
         # Increment time 
-        upper_arrows = BoxLayout(orientation = "horizontal", size_hint_y = None, height = -400)
+        upper_arrows = BoxLayout(orientation = "horizontal", 
+                                 size_hint_y = None, 
+                                 height = 50)
         # Hour
         upper_arrows.add_widget(Button(text = "^", 
                                        font_size = "50dp", 
@@ -61,7 +69,11 @@ class WorkTimer(BoxLayout):
                                        on_press = lambda x: self.increment_time_label(seconds_tens, seconds_ones, "ones")))
         
         # Set time labels
-        time_labels = BoxLayout(orientation = "horizontal", size_hint_y = None, height = 200)
+        time_labels = BoxLayout(orientation = "horizontal", 
+                                size_hint_y = None, 
+                                height = 200,
+                                pos_hint = {"x": 0.04},
+                                spacing = 59)
         # Hour
         time_labels.add_widget(hours_ones)
         # Minutes
@@ -74,8 +86,10 @@ class WorkTimer(BoxLayout):
         # Embed down arrows layout into a scatter layout to flip the arrows with the same characters used in up arrows
         # Could not find an identical symbol to the caret symbol that is flipped upside-down
         # Decrement time
-        lower_arrows = ScatterLayout(rotation = 180, size_hint_y = None, height = 300)
-        flip = BoxLayout(orientation = "horizontal", size_hint_y = None)
+        lower_arrows = ScatterLayout(rotation = 180, size_hint_y = None)
+        flip = BoxLayout(orientation = "horizontal", 
+                         size_hint_y = None,
+                         height = 50)
         
         # Reverse order of buttons cause of rotation
         # Seconds
@@ -168,27 +182,58 @@ class BreakTimer(BoxLayout):
         super().__init__(**kwargs)
         
         self.orientation = "vertical"
+        self.spacing = 20
         
         # Labels for each time in the ones and tens place
-        # Should default to five minutes
+        # Should default to 5 minutes
         
-        minutes_tens = Label(text = "2", font_size = "200dp")
-        minutes_ones = Label(text = "5", font_size = "200dp")
+        minutes_tens = Label(text = "0", 
+                             font_size = "200dp", 
+                             size_hint = (None, None),
+                             size = (100, 200))
+        minutes_ones = Label(text = "5", 
+                             font_size = "200dp", 
+                             size_hint = (None, None),
+                             size = (100, 200))
         
-        seconds_tens = Label(text = "0", font_size = "200dp")
-        seconds_ones = Label(text = "0", font_size = "200dp")
+        seconds_tens = Label(text = "0", 
+                             font_size = "200dp", 
+                             size_hint = (None, None),
+                             size = (100, 200))
+        seconds_ones = Label(text = "0", 
+                             font_size = "200dp", 
+                             size_hint = (None, None),
+                             size = (100, 200))
         
         # Increment time 
-        upper_arrows = BoxLayout(orientation = "horizontal", size_hint = (1, 0.2))
+        upper_arrows = BoxLayout(orientation = "horizontal", 
+                                 size_hint_y = None, 
+                                 height = 50)
         # Minutes
-        upper_arrows.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.increment_time_label(minutes_tens, minutes_ones, "tens")))
-        upper_arrows.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.increment_time_label(minutes_tens, minutes_ones, "ones")))
+        upper_arrows.add_widget(Button(text = "^", 
+                                       font_size = "50dp", 
+                                       size_hint_y = None, 
+                                       on_press = lambda x: self.increment_time_label(minutes_tens, minutes_ones, "tens")))
+        upper_arrows.add_widget(Button(text = "^", 
+                                       font_size = "50dp", 
+                                       size_hint_y = None, 
+                                       on_press = lambda x: self.increment_time_label(minutes_tens, minutes_ones, "ones")))
         # Seconds
-        upper_arrows.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.increment_time_label(seconds_tens, seconds_ones, "tens")))
-        upper_arrows.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.increment_time_label(seconds_tens, seconds_ones, "ones")))
+        upper_arrows.add_widget(Button(text = "^", 
+                                       font_size = "50dp", 
+                                       size_hint_y = None, 
+                                       on_press = lambda x: self.increment_time_label(seconds_tens, seconds_ones, "tens")))
+        upper_arrows.add_widget(Button(text = "^", 
+                                       font_size = "50dp", 
+                                       size_hint_y = None, 
+                                       on_press = lambda x: self.increment_time_label(seconds_tens, seconds_ones, "ones")))
         
         # Set time labels
-        time_labels = BoxLayout(orientation = "horizontal")
+        time_labels = BoxLayout(orientation = "horizontal", 
+                                size_hint_y = None, 
+                                height = 200,
+                                pos_hint = {"x": 0.063},
+                                spacing = 100)
         # Minutes
         time_labels.add_widget(minutes_tens)
         time_labels.add_widget(minutes_ones)
@@ -199,17 +244,31 @@ class BreakTimer(BoxLayout):
         # Embed down arrows layout into a scatter layout to flip the arrows with the same characters used in up arrows
         # Could not find an identical symbol to the caret symbol that is flipped upside-down
         # Decrement time
-        lower_arrows = ScatterLayout(rotation = 180)
-        flip = BoxLayout(orientation = "horizontal", size_hint = (1, 0.2))
+        lower_arrows = ScatterLayout(rotation = 180, size_hint_y = None)
+        flip = BoxLayout(orientation = "horizontal", 
+                         size_hint_y = None,
+                         height = 50)
         
         # Reverse order of buttons cause of rotation
         # Seconds
-        flip.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.decrement_time_label(seconds_tens, seconds_ones, "ones")))
-        flip.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.decrement_time_label(seconds_tens, seconds_ones, "tens")))
+        flip.add_widget(Button(text = "^", 
+                               font_size = "50dp", 
+                               size_hint_y = None, 
+                               on_press = lambda x: self.decrement_time_label(seconds_tens, seconds_ones, "ones")))
+        flip.add_widget(Button(text = "^", 
+                               font_size = "50dp", 
+                               size_hint_y = None, 
+                               on_press = lambda x: self.decrement_time_label(seconds_tens, seconds_ones, "tens")))
         # Minutes
-        flip.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.decrement_time_label(minutes_tens, minutes_ones, "ones")))
-        flip.add_widget(Button(text = "^", font_size = "50dp", on_press = lambda x: self.decrement_time_label(minutes_tens, minutes_ones, "tens")))
-  
+        flip.add_widget(Button(text = "^", 
+                               font_size = "50dp", 
+                               size_hint_y = None, 
+                               on_press = lambda x: self.decrement_time_label(minutes_tens, minutes_ones, "ones")))
+        flip.add_widget(Button(text = "^", 
+                               font_size = "50dp", 
+                               size_hint_y = None, 
+                               on_press = lambda x: self.decrement_time_label(minutes_tens, minutes_ones, "tens")))
+        
         lower_arrows.add_widget(flip)
         
         self.add_widget(upper_arrows)

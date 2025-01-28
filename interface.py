@@ -15,17 +15,22 @@ from timers import WorkTimer, BreakTimer
 class AppLayout(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        scroll_view = ScrollView(size_hint = (1, 1))
         
-        timers_layout = BoxLayout(orientation = "vertical", size_hint_y = None)
+        timers_layout = BoxLayout(orientation = "vertical", size_hint_y = None, 
+                                  spacing = 50)
+        timers_layout.bind(minimum_height = timers_layout.setter("height"))
         
-        wrk = WorkTimer(size_hint_y = None)
+        wrk = WorkTimer(size_hint = (1, None), height = 400)
         
-        brk = BreakTimer()
+        brk = BreakTimer(size_hint = (1, None), height = 400)
 
         timers_layout.add_widget(wrk)
-        #timers_layout.add_widget(brk)
+        timers_layout.add_widget(brk)
         
-        self.add_widget(timers_layout)
+        scroll_view.add_widget(timers_layout)
+        
+        self.add_widget(scroll_view)
         
 class Timer(App):
     def build(self):
